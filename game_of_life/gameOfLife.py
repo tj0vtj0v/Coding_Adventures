@@ -25,7 +25,7 @@ RADIUS = 1
 GRIDSIZE_X = 192
 GRIDSIZE_Y = 108
 IMG_UP_RES = 5
-LENGTH = 100
+LENGTH = 1000
 FPS = 10
 
 SAVEPATH = 'C:/Users/q539410/Documents/GOL'
@@ -174,45 +174,24 @@ class life():
         video.release()
 
 
-RADIUS = 0
-MIN_LIFE = -1
-MAX_LIFE = 0
-REP_LIFE = 0
 if not os.path.exists(SAVEPATH):
     os.mkdir(SAVEPATH)
-while True:
-    if RADIUS == 1:
-        RADIUS = 2
-    else: 
-        RADIUS = 1
-        if MIN_LIFE < 24:
-            MIN_LIFE +=1
-        else:
-            MIN_LIFE = 0
-            if REP_LIFE < 24:
-                REP_LIFE +=1
-            else:
-                REP_LIFE = 0
-                if MAX_LIFE < 24:
-                    MAX_LIFE +=1
-                else:
-                    MAX_LIFE = 0
 
-    game = life()
-    min_life = game.num_to_str(MIN_LIFE, 2)
-    max_life = game.num_to_str(MAX_LIFE, 2)
-    rep_life = game.num_to_str(REP_LIFE, 2)
-    radius = game.num_to_str(RADIUS, 2)
+game = life()
+min_life = game.num_to_str(MIN_LIFE, 2)
+max_life = game.num_to_str(MAX_LIFE, 2)
+rep_life = game.num_to_str(REP_LIFE, 2)
+radius = game.num_to_str(RADIUS, 2)
 
-    if f'{min_life}_{max_life}_{rep_life}_{radius}.mp4' in os.listdir(SAVEPATH):
-        print(f'already existed: {min_life}_{max_life}_{rep_life}_{radius}.mp4')
-        continue
+if f'{min_life}_{max_life}_{rep_life}_{radius}.mp4' in os.listdir(SAVEPATH):
+    print(f'already existed: {min_life}_{max_life}_{rep_life}_{radius}.mp4')
+    continue
 
-    print(f'started to create: {min_life}_{max_life}_{rep_life}_{radius}.mp4')
+print(f'started to create: {min_life}_{max_life}_{rep_life}_{radius}.mp4')
 
-    game.random_start_pos()
-    while game.frame <= LENGTH:
-        game.animation_loop()
-    game.convert_to_video(min_life, max_life, rep_life, radius)
+game.random_start_pos()
+while game.frame <= LENGTH:
+    game.animation_loop()
+game.convert_to_video(min_life, max_life, rep_life, radius)
 
-    print(f'finished to create: {min_life}_{max_life}_{rep_life}_{radius}.mp4')
+print(f'finished to create: {min_life}_{max_life}_{rep_life}_{radius}.mp4')
